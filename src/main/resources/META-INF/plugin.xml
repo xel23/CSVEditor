@@ -1,6 +1,7 @@
 <idea-plugin>
     <id>net.csveditor.csv</id>
     <name>CSV</name>
+    <version>0.1</version>
     <vendor email="csv@yourcompany.com" url="http://www.csv.com">CSV</vendor>
 
     <description><![CDATA[
