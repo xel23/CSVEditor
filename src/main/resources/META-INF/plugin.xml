@@ -16,6 +16,12 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <fileTypeFactory implementation="csv.CsvFileTypeFactory"/>
+        <lang.parserDefinition language="csv" implementationClass="csv.CsvParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="csv"
+                                       implementationClass="csv.highlighter.CsvSyntaxHighlighterFactory"/>
+        <codeStyleSettingsProvider implementation="csv.settings.CsvCodeStyleSettingsProvider"/>
+        <langCodeStyleSettingsProvider implementation="csv.settings.CsvLanguageCodeStyleSettingsProvider"/>
+        <colorSettingsPage implementation="csv.settings.CsvColorSettings"/>
     </extensions>
 
     <actions>
