@@ -6,12 +6,11 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
 import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
-//import csv.CsvSeparatorHolder;
+import csv.CsvSeparatorHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.regex.Pattern;
 
-@SuppressWarnings({"checkstyle:membername", "checkstyle:visibilitymodifier"})
 public class CsvCodeStyleSettings extends CustomCodeStyleSettings {
 
     public boolean SPACE_BEFORE_SEPARATOR = false;
@@ -49,7 +48,10 @@ public class CsvCodeStyleSettings extends CustomCodeStyleSettings {
     }
 
     public static String getCurrentSeparator(@Nullable Project project, @Nullable Language language) {
-        return  "to do";
+        if (language != null && language instanceof CsvSeparatorHolder) {
+            return ((CsvSeparatorHolder)language).getSeparator();
+        }
+        return getCurrentSeparator(project);
     }
 
     public CsvCodeStyleSettings(CodeStyleSettings settings) {
