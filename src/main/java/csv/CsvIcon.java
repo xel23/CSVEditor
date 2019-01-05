@@ -4,5 +4,5 @@ import com.intellij.openapi.util.IconLoader;
 import javax.swing.*;
 
 public class CsvIcon {
-    public static final Icon FILE = IconLoader.getIcon("/ico.png");
+    public static final Icon FILE = IconLoader.getIcon("media/icons/ico.png");
 }
