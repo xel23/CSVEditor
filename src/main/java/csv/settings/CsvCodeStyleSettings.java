@@ -16,6 +16,8 @@ public class CsvCodeStyleSettings extends CustomCodeStyleSettings {
     public boolean SPACE_BEFORE_SEPARATOR = false;
     public boolean SPACE_AFTER_SEPARATOR = false;
     public boolean TABULARIZE = true;
+    public boolean WHITE_SPACES_OUTSIDE_QUOTES = true;
+    public boolean LEADING_WHITE_SPACES = false;
     public int SEPARATOR_INDEX = 0;
 
     public static final String DEFAULT_SEPARATOR = ",";
