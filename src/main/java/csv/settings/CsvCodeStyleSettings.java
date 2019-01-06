@@ -9,8 +9,6 @@ import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
 import csv.CsvSeparatorHolder;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.regex.Pattern;
-
 public class CsvCodeStyleSettings extends CustomCodeStyleSettings {
 
     public boolean SPACE_BEFORE_SEPARATOR = false;
