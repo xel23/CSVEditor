@@ -71,6 +71,15 @@ public final class CsvFormatHelper {
         return builder;
     }
 
+    public static ASTNode getRoot(final ASTNode node) {
+        ASTNode currentNode = node;
+        ASTNode parent;
+        while ((parent = currentNode.getTreeParent()) != null) {
+            currentNode = parent;
+        }
+        return currentNode;
+    }
+
     private CsvFormatHelper() {
         // static utility class
     }
