@@ -1,10 +1,13 @@
 package csv.formatter;
 
 import com.intellij.formatting.Block;
+import com.intellij.formatting.SpacingBuilder;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.common.AbstractBlock;
+import csv.CsvLanguage;
 import csv.psi.CsvTypes;
+import  csv.psi.CsvElementType;
 import csv.settings.CsvCodeStyleSettings;
 
 import org.jetbrains.annotations.Contract;
@@ -40,6 +43,32 @@ public final class CsvFormatHelper {
         length += text.length();
 
         return length;
+    }
+
+    public static SpacingBuilder createSpaceBuilder(@NotNull CodeStyleSettings settings) {
+        CsvCodeStyleSettings csvCodeStyleSettings = settings.getCustomSettings(CsvCodeStyleSettings.class);
+        SpacingBuilder builder = new SpacingBuilder(settings, CsvLanguage.INSTANCE);
+        if (csvCodeStyleSettings.TABULARIZE) {
+            builder
+                    .after(CsvTypes.COMMA).spaceIf(csvCodeStyleSettings.SPACE_AFTER_SEPARATOR)
+                    .after(CsvTypes.CRLF).spaces(0)
+                    .after(CsvElementType.DOCUMENT_START).spaces(0);
+            if (csvCodeStyleSettings.TABULARIZE && !csvCodeStyleSettings.WHITE_SPACES_OUTSIDE_QUOTES) {
+                builder.before(CsvTypes.QUOTE).spaces(0);
+            }
+
+            builder
+                    .before(CsvTypes.COMMA).spaceIf(csvCodeStyleSettings.SPACE_BEFORE_SEPARATOR)
+                    .before(CsvTypes.CRLF).spaces(0);
+            if (csvCodeStyleSettings.TABULARIZE && !csvCodeStyleSettings.WHITE_SPACES_OUTSIDE_QUOTES) {
+                builder.after(CsvTypes.QUOTE).spaces(0);
+            }
+        } else if (csvCodeStyleSettings.SPACE_BEFORE_SEPARATOR) {
+            builder.before(CsvTypes.COMMA).spaces(1);
+            builder.after(CsvTypes.COMMA).spaces(1);
+        }
+
+        return builder;
     }
 
     private CsvFormatHelper() {
