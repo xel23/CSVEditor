@@ -5,6 +5,7 @@ import com.intellij.formatting.SpacingBuilder;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.common.AbstractBlock;
+import csv.CsvColumnInfo;
 import csv.CsvLanguage;
 import csv.psi.CsvTypes;
 import  csv.psi.CsvElementType;
@@ -14,7 +15,9 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public final class CsvFormatHelper {
@@ -78,6 +81,32 @@ public final class CsvFormatHelper {
             currentNode = parent;
         }
         return currentNode;
+    }
+
+    public static Map<Integer, CsvColumnInfo<ASTNode>> createColumnInfoMap(@NotNull ASTNode root,
+                                                                           CodeStyleSettings settings) {
+        Map<Integer, CsvColumnInfo<ASTNode>> columnInfoMap = new HashMap<>();
+        ASTNode child = root.getFirstChildNode();
+        while (child != null) {
+            if (child.getElementType() == CsvTypes.RECORD) {
+                Integer column = 0;
+                ASTNode subChild = child.getFirstChildNode();
+                while (subChild != null) {
+                    if (subChild.getElementType() == CsvTypes.FIELD) {
+                        int length = getTextLength(subChild, settings);
+                        if (!columnInfoMap.containsKey(column)) columnInfoMap.put(column, new CsvColumnInfo(length));
+                        else if (columnInfoMap.get(column).getMaxLength() < length) {
+                            columnInfoMap.get(column).setMaxLength(length);
+                        }
+                        columnInfoMap.get(column).addElement(subChild);
+                        ++column;
+                    }
+                    subChild = subChild.getTreeNext();
+                }
+            }
+            child = child.getTreeNext();
+        }
+        return columnInfoMap;
     }
 
     private CsvFormatHelper() {
