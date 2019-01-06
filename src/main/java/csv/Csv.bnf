@@ -1,0 +1,35 @@
+{
+  parserClass="csv.parser.CsvParser"
+  parserUtilClass="csv.parser.CsvParserUtil"
+
+  parserImports=["static csv.CsvParserUtil.*"]
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Csv"
+  psiImplClassSuffix="Impl"
+  psiPackage="csv.psi"
+  psiImplPackage="csv.psi.impl"
+
+  elementTypeHolderClass="csv.psi.CsvTypes"
+  elementTypeClass="csv.psi.CsvElementType"
+  tokenTypeClass="csv.psi.CsvTokenType"
+
+  tokens=[
+    TEXT='regexp:[^ ,;|\t\r\n"]+'
+    ESCAPED_TEXT='regexp:([,;|\t\r\n]|"")+'
+    COMMA='regexp:[,;|\t]'
+    QUOTE='"'
+    CRLF='regexp:\n'
+   ]
+}
+
+csvFile ::= record (CRLF record)* [CRLF]
+
+record ::= field ( << separator >> COMMA field)*
+
+field ::= (escaped | nonEscaped)
+
+private escaped ::= QUOTE ( TEXT | ESCAPED_TEXT)* QUOTE
+
+private nonEscaped ::= TEXT*
