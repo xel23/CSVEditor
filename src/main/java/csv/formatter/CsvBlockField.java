@@ -64,4 +64,9 @@ public class CsvBlockField extends CsvBlockElement {
         }
         return Spacing.createSpacing(spaces, spaces, 0, true, 0);
     }
+
+    @Override
+    public int getTextLength() {
+        return CsvFormatHelper.getTextLength(getNode(), myFormattingInfo.getCodeStyleSettings());
+    }
 }
