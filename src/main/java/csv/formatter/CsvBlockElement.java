@@ -19,6 +19,10 @@ public class CsvBlockElement extends CsvBlock {
         setField(field);
     }
 
+    public CsvBlockElement(ASTNode node, CsvFormattingInfo formattingInfo) {
+        this(node, formattingInfo, null);
+    }
+
     public CsvColumnInfo getColumnInfo() {
         return getField() == null ? null : getField().getColumnInfo();
     }

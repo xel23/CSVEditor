@@ -1,6 +1,7 @@
 package csv.formatter;
 
 import com.intellij.formatting.*;
+import com.intellij.lang.ASTFactory;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.formatter.common.AbstractBlock;
@@ -20,6 +21,13 @@ public class CsvBlock extends AbstractBlock {
     protected CsvBlock(@NotNull ASTNode node, CsvFormattingInfo formattingInfo) {
         super(node, Wrap.createWrap(WrapType.NONE, false), Alignment.createAlignment());
         this.myFormattingInfo = formattingInfo;
+    }
+
+    private void validateBlocks(@NotNull List<Block> blocks) {
+        if (blocks.isEmpty()) {
+            return;
+        }
+        blocks.add(0, new CsvBlockElement(ASTFactory.leaf(DOCUMENT_START, ""), myFormattingInfo));
     }
 
 // reload method buildChildren from AbstractBlock
@@ -50,6 +58,7 @@ public class CsvBlock extends AbstractBlock {
                 blocks.add(new CsvDummyBlock(node, myFormattingInfo));
             }
         }
+        validateBlocks(blocks);
         return blocks;
     }
 
@@ -107,5 +116,9 @@ public class CsvBlock extends AbstractBlock {
     @Override
     public boolean isLeaf() {
         return getNode().getFirstChildNode() == null;
+    }
+
+    public int getTextLength() {
+        return getTextRange().getLength();
     }
 }
