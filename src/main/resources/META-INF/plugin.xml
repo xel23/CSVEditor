@@ -8,20 +8,14 @@
     some text about csv plugin........................
     ]]></description>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products
-    <depends>com.intellij.modules.lang</depends>
-    -->
-
     <extensions defaultExtensionNs="com.intellij">
         <fileTypeFactory implementation="csv.CsvFileTypeFactory"/>
         <lang.parserDefinition language="csv" implementationClass="csv.CsvParserDefinition"/>
         <lang.syntaxHighlighterFactory language="csv"
                                        implementationClass="csv.highlighter.CsvSyntaxHighlighterFactory"/>
+        <colorSettingsPage implementation="csv.settings.CsvColorSettings"/>
         <codeStyleSettingsProvider implementation="csv.settings.CsvCodeStyleSettingsProvider"/>
         <langCodeStyleSettingsProvider implementation="csv.settings.CsvLanguageCodeStyleSettingsProvider"/>
-        <colorSettingsPage implementation="csv.settings.CsvColorSettings"/>
     </extensions>
 
     <actions>
