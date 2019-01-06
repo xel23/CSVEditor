@@ -24,7 +24,6 @@ public class CsvCodeStyleSettings extends CustomCodeStyleSettings {
     public static final String TAB_SEPARATOR = "\t";
     public static final String[] SUPPORTED_SEPARATORS = new String[]{",", ";", "|", TAB_SEPARATOR};
     public static final String[] SUPPORTED_SEPARATORS_DISPLAY = new String[]{"Comma (,)", "Semicolon (;)", "Pipe (|)", "Tab (↹)"};
-    public static final Pattern REPLACE_DEFAULT_SEPARATOR_PATTERN = Pattern.compile(CsvCodeStyleSettings.DEFAULT_SEPARATOR);
 
     public static String getCurrentSeparator(CodeStyleSettings codeStyleSettings) {
         if (codeStyleSettings != null) {
