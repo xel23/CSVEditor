@@ -13,6 +13,7 @@
         <lang.parserDefinition language="csv" implementationClass="csv.CsvParserDefinition"/>
         <lang.syntaxHighlighterFactory language="csv"
                                        implementationClass="csv.highlighter.CsvSyntaxHighlighterFactory"/>
+        <lang.formatter language="csv" implementationClass="csv.formatter.CsvFormattingModelBuilder"/>
         <colorSettingsPage implementation="csv.settings.CsvColorSettings"/>
         <codeStyleSettingsProvider implementation="csv.settings.CsvCodeStyleSettingsProvider"/>
         <langCodeStyleSettingsProvider implementation="csv.settings.CsvLanguageCodeStyleSettingsProvider"/>
