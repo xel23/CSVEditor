@@ -71,7 +71,8 @@ public class CsvBlock extends AbstractBlock {
             CsvBlockElement block1 = (CsvBlockElement) child1;
             CsvBlockElement block2 = (CsvBlockElement) child2;
             if (myFormattingInfo.getCsvCodeStyleSettings().TABULARIZE && isTabularizeSpacingRequired(block1, block2)) {
-                int spaces = block2.getColumnInfo().getMaxLength() - block2.getField().getTextLength() + getAdditionalSpaces(block1, block2);
+                int spaces = block2.getColumnInfo().getMaxLength() - block2.getField().getTextLength() +
+                        getAdditionalSpaces(block1, block2);
                 spacing = Spacing.createSpacing(spaces, spaces, 0, true, 0);
             } else {
                 spacing = myFormattingInfo.getSpacingBuilder().getSpacing(this, child1, child2);

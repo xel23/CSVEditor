@@ -59,7 +59,11 @@ public final class CsvFormatHelper {
             if (csvCodeStyleSettings.TABULARIZE && !csvCodeStyleSettings.WHITE_SPACES_OUTSIDE_QUOTES) {
                 builder.before(CsvTypes.QUOTE).spaces(0);
             }
+        } else if (csvCodeStyleSettings.SPACE_AFTER_SEPARATOR) {
+            builder.after(CsvTypes.COMMA).spaces(1);
+        }
 
+        if (csvCodeStyleSettings.TABULARIZE) {
             builder
                     .before(CsvTypes.COMMA).spaceIf(csvCodeStyleSettings.SPACE_BEFORE_SEPARATOR)
                     .before(CsvTypes.CRLF).spaces(0);
@@ -68,7 +72,6 @@ public final class CsvFormatHelper {
             }
         } else if (csvCodeStyleSettings.SPACE_BEFORE_SEPARATOR) {
             builder.before(CsvTypes.COMMA).spaces(1);
-            builder.after(CsvTypes.COMMA).spaces(1);
         }
 
         return builder;
