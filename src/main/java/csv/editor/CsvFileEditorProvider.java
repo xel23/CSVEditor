@@ -8,6 +8,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.SingleRootFileViewProvider;
 import csv.CsvLanguage;
 import org.jetbrains.annotations.NotNull;
+import org.jdom.Element;
 
 public class CsvFileEditorProvider implements AsyncFileEditorProvider {
 
@@ -41,6 +42,22 @@ public class CsvFileEditorProvider implements AsyncFileEditorProvider {
     @Override
     public FileEditor createEditor(@NotNull Project project, @NotNull VirtualFile virtualFile) {
         return createEditorAsync(project, virtualFile).build();
+    }
+
+    @Override
+    public FileEditorState readState(@NotNull Element sourceElement, @NotNull Project project,
+                                     @NotNull VirtualFile file) {
+        return TextEditorProvider.getInstance().readState(sourceElement, project, file);
+    }
+
+    @Override
+    public void writeState(@NotNull FileEditorState state, @NotNull Project project, @NotNull Element targetElement) {
+        TextEditorProvider.getInstance().writeState(state, project, targetElement);
+    }
+
+    @Override
+    public void disposeEditor(@NotNull FileEditor editor) {
+        TextEditorProvider.getInstance().disposeEditor(editor);
     }
 
     // reload method
