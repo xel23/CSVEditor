@@ -17,6 +17,9 @@
         <colorSettingsPage implementation="csv.settings.CsvColorSettings"/>
         <codeStyleSettingsProvider implementation="csv.settings.CsvCodeStyleSettingsProvider"/>
         <langCodeStyleSettingsProvider implementation="csv.settings.CsvLanguageCodeStyleSettingsProvider"/>
+        <applicationService serviceImplementation="csv.editor.CsvEditorSettingsExternalizable" />
+        <editorOptionsProvider instance="csv.editor.CsvEditorSettingsProvider" />
+        <fileEditorProvider implementation="csv.editor.table.CsvTableEditorProvider" />
     </extensions>
 
     <actions>
