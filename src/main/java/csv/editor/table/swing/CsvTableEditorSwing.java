@@ -3,7 +3,6 @@ package csv.editor.table.swing;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
-import com.intellij.ui.components.labels.LinkLabel;
 import com.intellij.ui.table.JBTable;
 import com.intellij.util.ArrayUtil;
 import csv.CsvColumnInfo;
@@ -34,7 +33,6 @@ public class CsvTableEditorSwing extends CsvTableEditor implements TableDataChan
     private JButton btnUndo;
     private JButton btnRedo;
     protected JButton btnAddRow;
-    private LinkLabel lnkTextEditor;
     private JLabel lblErrorText;
     protected JButton btnAddColumn;
     protected JButton btnRemoveRow;
@@ -65,7 +63,6 @@ public class CsvTableEditorSwing extends CsvTableEditor implements TableDataChan
 
     protected void createUIComponents() {
         tblEditor = new JBTable(new DefaultTableModel(0, 0));
-        lnkTextEditor = new LinkLabel("Open file in text editor", null);
     }
 
     private void initializedUIComponents() {
@@ -75,7 +72,6 @@ public class CsvTableEditorSwing extends CsvTableEditor implements TableDataChan
         btnRemoveRow.addActionListener(tableEditorActions.deleteRow);
         btnAddColumn.addActionListener(tableEditorActions.addColumn);
         btnRemoveColumn.addActionListener(tableEditorActions.deleteColumn);
-        lnkTextEditor.setListener(this.tableEditorActions.openTextEditor, null);
 
         comboRowHeight.addActionListener(e -> {
             getFileEditorState().setRowLines(comboRowHeight.getSelectedIndex());

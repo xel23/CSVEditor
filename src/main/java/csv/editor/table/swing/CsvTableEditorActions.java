@@ -1,12 +1,7 @@
 package csv.editor.table.swing;
 
 import com.google.common.primitives.Ints;
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.fileEditor.OpenFileDescriptor;
-import com.intellij.ui.components.labels.LinkLabel;
-import com.intellij.ui.components.labels.LinkListener;
 import com.intellij.ui.table.JBTable;
-import csv.editor.CsvFileEditorProvider;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -29,7 +24,6 @@ public class CsvTableEditorActions extends CsvTableEditorUtilBase {
     protected ActionListener addColumnAfter = new AddColumnAction(false);
     protected ActionListener deleteRow = new DeleteRowAction();
     protected ActionListener deleteColumn = new DeleteColumnAction();
-    protected LinkListener openTextEditor = new OpenTextEditor();
 
     public CsvTableEditorActions(CsvTableEditorSwing tableEditor) {
         super(tableEditor);
@@ -225,18 +219,6 @@ public class CsvTableEditorActions extends CsvTableEditorUtilBase {
             } finally {
                 csvTableEditor.applyTableChangeListener();
             }
-        }
-    }
-
-    private final class OpenTextEditor implements LinkListener {
-        @Override
-        public void linkSelected(LinkLabel linkLabel, Object o) {
-            FileEditorManager.getInstance(csvTableEditor.getProject())
-                    .openTextEditor(new OpenFileDescriptor(csvTableEditor.getProject(), csvTableEditor.getFile()),
-                            true);
-
-            FileEditorManager.getInstance(csvTableEditor.getProject()).setSelectedEditor(csvTableEditor.getFile(),
-                    CsvFileEditorProvider.EDITOR_TYPE_ID);
         }
     }
 }
