@@ -49,6 +49,23 @@ public final class CsvHelper {
         return result;
     }
 
+    @Contract("null, _ -> false")
+    private static boolean isQuotingRequired(String content, String separator) {
+        return content != null && (content.contains(separator) || content.contains("\"") || content.contains("\n"));
+    }
+
+    @Contract("null, _, _ -> !null; !null, _, true -> !null")
+    public static String quoteCsvField(String content, String separator, boolean quotingEnforced) {
+        if (content == null) {
+            return "";
+        }
+        if (quotingEnforced || isQuotingRequired(content, separator)) {
+            String result = content.replaceAll("\"", "\"\"");
+            return "\"" + result + "\"";
+        }
+        return content;
+    }
+
     @NotNull
     public static <T> T[][] deepCopy(T[][] matrix) {
         return java.util.Arrays.stream(matrix).map(el -> el.clone()).toArray($ -> matrix.clone());

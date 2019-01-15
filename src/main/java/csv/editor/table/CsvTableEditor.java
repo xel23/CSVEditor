@@ -16,6 +16,8 @@ import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import csv.CsvColumnInfoMap;
+import csv.CsvHelper;
+import csv.editor.CsvEditorSettingsExternalizable;
 import csv.editor.table.api.TableDataHandler;
 import csv.psi.CsvFile;
 import csv.settings.CsvCodeStyleSettings;
@@ -129,10 +131,20 @@ public abstract class CsvTableEditor implements FileEditor, FileEditorLocation {
         });
     }
 
+    protected String sanitizeFieldValue(Object value) {
+        if (value == null) {
+            return "";
+        }
+        return CsvHelper.quoteCsvField(value.toString(), this.currentSeparator,
+                CsvEditorSettingsExternalizable.getInstance().isQuotingEnforced());
+    }
+
     protected String generateCsv(Object[][] data) {
         StringBuilder result = new StringBuilder();
         for (int row = 0; row < data.length; ++row) {
             for (int column = 0; column < data[row].length; ++column) {
+                Object value = data[row][column];
+                result.append(sanitizeFieldValue(value));
                 if (column < data[row].length - 1) {
                     result.append(this.currentSeparator);
                 }

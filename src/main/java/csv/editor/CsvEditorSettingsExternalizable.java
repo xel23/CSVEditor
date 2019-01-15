@@ -84,4 +84,8 @@ public class CsvEditorSettingsExternalizable implements
         if (finalRowHeight < TABLE_EDITOR_MIN_ROW_HEIGHT) finalRowHeight = TABLE_EDITOR_MIN_ROW_HEIGHT;
         getState().TABLE_EDITOR_ROW_HEIGHT = finalRowHeight;
     }
+
+    public boolean isQuotingEnforced() {
+        return getState().QUOTING_ENFORCED;
+    }
 }
